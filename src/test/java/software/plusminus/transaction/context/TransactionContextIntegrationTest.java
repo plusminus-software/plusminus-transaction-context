@@ -1,11 +1,8 @@
 package software.plusminus.transaction.context;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import software.plusminus.context.Context;
 import software.plusminus.transaction.context.fixtures.TransactionalService;
 
 import java.util.List;
@@ -25,16 +22,6 @@ class TransactionContextIntegrationTest {
     private AtomicInteger index = new AtomicInteger(1);
     private TransactionContext<String> transactionContext = TransactionContext.of(
             () -> TEST_VALUE + index.getAndIncrement());
-
-    @BeforeAll
-    static void beforeAll() {
-        Context.init();
-    }
-
-    @AfterAll
-    static void afterEach() {
-        Context.clear();
-    }
 
     @Test
     void noTransaction() {

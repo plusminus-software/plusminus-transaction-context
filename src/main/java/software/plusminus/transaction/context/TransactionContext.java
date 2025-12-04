@@ -2,7 +2,6 @@ package software.plusminus.transaction.context;
 
 import org.springframework.transaction.support.TransactionSynchronization;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
-import software.plusminus.context.Context;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,7 +11,7 @@ import java.util.function.Supplier;
 
 public interface TransactionContext<T> {
 
-    Context<List<Map<TransactionContext<?>, Object>>> CONTEXT = Context.of(ArrayList::new);
+    ThreadLocal<List<Map<TransactionContext<?>, Object>>> CONTEXT = ThreadLocal.withInitial(ArrayList::new);
 
     default T get() {
         if (!TransactionSynchronizationManager.isSynchronizationActive()) {
